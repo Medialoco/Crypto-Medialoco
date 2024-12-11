@@ -1,11 +1,14 @@
 async function main() {
   // Fetch contract to deploy
-  const Token = await ethers.getContractFactory("MedialocoToken")
+  const Token = await ethers.getContractFactory("MedialocoToken");
 
   // Deploy contract
-  const token = await Token.deploy()
-  await token.deployed()
-  console.log(`Token Deployed to: ${token.address}`)
+  const token = await Token.deploy("Medialoco", "LOCO", "1000000");
+
+  // Wait for the deployment to complete
+  await token.waitForDeployment();
+
+  console.log(`Token Deployed to: ${await token.getAddress()}`);
 }
 
 main()
